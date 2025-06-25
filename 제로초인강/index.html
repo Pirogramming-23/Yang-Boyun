@@ -554,6 +554,70 @@
                 }
                 #main-login {
                     height: 164px;
+                    padding : 21px 20px 18px;
+                    font-size : 1.4rem;
+                    display : flex;
+                    flex-flow: column;
+                }
+                #main-login > div:first-of-type {
+                    line-height: 20px;
+                    text-align: center;
+                    white-space: nowrap;
+                    font-size: 1.2rem;
+                    margin-bottom: 10px;
+                }
+                #main-login-button {
+                    margin-top: 13px;
+                    padding: 17px 0;
+                    border: 1px solid rgba(0,0,0,.06);
+                    height: 40px;
+                    border-radius: 4px;
+                    background-color: #03c75a;
+                    color: white;
+                    text-decoration: none;
+                    margin-bottom: 16px;
+                }
+                #main-login-button i {
+                    vertical-align: -1px;
+                    background-image: url(./sp_main.png);
+                    background-size: 463px 442px;
+                    background-position: 0px -301px;
+                    background-repeat: no-repeat;
+                    width: 72px;
+                    height: 14px;
+                    display: inline-block;
+                    margin: 3px 8px 0 0;
+                }
+                #main-login > div:last-of-type {
+                    font-size: 1.0rem;
+                    display: flex;
+                    justify-content: center;
+                    gap: 1px;
+                }
+                #main-login > div:last-of-type a {
+                    text-decoration: none;
+                    color: var(--color_caption2);
+                    letter-spacing: -0.4px;
+                }
+                #main-login > div:last-of-type a:first-of-type, #main-login > div:last-of-type a:last-of-type {
+                    position: relative;
+                    top: 6px;
+                }
+                #main-login > div:last-of-type a:hover {
+                    text-decoration: underline;
+                }
+                #main-login > div:last-of-type a:nth-of-type(2) {
+                    position: relative;
+                    top: 5px; 
+                }
+                #main-login > div:last-of-type > a:nth-of-type(2)::before, #main-login > div:last-of-type > a:nth-of-type(2)::after{
+                    content: '';
+                    display: inline-block;
+                    width: 1px;
+                    height: 12px;
+                    background-color: #d3d5d7;
+                    background-color: var(--color_dot_divider);
+                    margin: 4px 12px 0;
                 }
                 #main-right-ad {
                     height: 240px;
@@ -569,10 +633,10 @@
                     border-top: 1px solid var(--color_border_in);
                 }
                 #main-weather {
-                    height: 236px;
+                    height: 300px;
                 }
                 #main-stock {
-                    height: 236px;
+                    height: 300px;
                 }
             </style>
             <main id="main">
@@ -582,7 +646,15 @@
                     <section id="main-shopping"></section>
                 </div>
                 <div id="main-right">
-                    <section id="main-login"></section>
+                    <section id="main-login">
+                        <div>네이버를 더 안전하고 편리하게 이용하세요.</div>
+                        <a href="" id="main-login-button"><i></i>로그인</a>
+                        <div>
+                            <a href="#">아이디 찾기</a>
+                            <a href="#">비밀번호 찾기</a>
+                            <a href="#">회원가입</a>
+                        </div>
+                    </section>
                     <aside id="main-right-ad"></aside>
                     <section id="main-weather" class="main-weather-and-stock">
                         <header>날씨</header>

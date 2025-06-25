@@ -84,7 +84,7 @@
         }
         #wrap-center{
             width: 1280px;
-            display : inlone-block;
+            display : inline-block; /* 이전 강의에서 오타난 부분 수정 */
             background-color: yellow;
         }
         #header{
@@ -106,6 +106,7 @@
         #head-hamburger:hover::before {
             position: absolute;
             content : '';
+            z-index : 0;
             left : 1px;
             top : 1px;
             width : 44px;
@@ -124,12 +125,24 @@
             background-image: url(../제로초인강/sp_main.png);
             width : 26px;
             height : 26px;
+            z-index: 1;
+            position : relative;
             background-repeat: no-repeat;
             background-size: 463px 442px;
             background-position: -311px -166px;
         }
+        
         #main{
             height: 2000px;
+        }
+        
+        .blind {
+            position: absolute;
+            clip: rect(0 0 0 0);
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -138,7 +151,10 @@
         <div id="wrap-center">
             <div id="header">
                 <button id="head-hamburger">
+                    <!--::before -->
                      <div></div>
+                     <span class="blind">확장 영역</span>
+                    <!--after -->
                 </button>
             </div>
             <div id="search"></div>

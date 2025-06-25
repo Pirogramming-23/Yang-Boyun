@@ -641,11 +641,11 @@
                     display: flex;
                     flex-flow: column;
                 }
-                #main-newstand-top {
+                #main-newstand-top ,  #main-shopping-top {
                     flex: 1;
                     padding: 18px 20px;
                 }
-                 #main-newstand-top .dot::before {
+                #main-newstand-top .dot::before {
                     content: '';
                     display: inline-block;
                     width: 4px;
@@ -656,15 +656,15 @@
                     border-radius: 50%;
                     vertical-align: 5px;
                 }
-                #main-newstand-top .slash, #main-newstand-top .dot {
+                .left-section .slash, .left-section .dot {
                     color: rgba(8,8,8,.5);
                     font-weight: 800;
                 }
-                #main-newstand-top .slash {
+                .left-section .slash {
                     position: relative;
                     padding-left: 26px;
                 }
-                #main-newstand-top .slash::before {
+                .left-section .slash::before {
                     content: '';
                     display: inline-block;
                     position: absolute;
@@ -676,7 +676,7 @@
                     background-color: var(--color_dot_divider);
                     transform: skewX(-15deg);
                 }
-                #main-newstand header {
+                .left-section header {
                     font-size: 1.1rem;
                     color: rgba(8,8,8,.5);
                     display: flex;
@@ -684,7 +684,7 @@
                     line-height: 23px;
                     margin-bottom: 17px;
                 }
-                #main-newstand header .bold {
+                .left-section .bold {
                     font-weight: bold;
                     color: black;
                 }
@@ -775,14 +775,14 @@
                     background-color: #d3d5d7;
                     background-color: var(--color_dot_divider);
                 }
-                #main-newstand a {
+                .left-section a {
                     text-decoration: none;
                 }
-                #main-newstand a:visited {
+                .left-section a:visited {
                     color: inherit;
                 }
-                #main-newstand a:hover {
-                    text-decoration: underline;
+                .left-section a:hover {
+                  text-decoration: underline;
                 }
                 #main-newstand-grid {
                     display: grid;
@@ -805,7 +805,7 @@
                     justify-content: center;
                     align-items: center;
                 }
-                #main-newstand footer {
+                .left-section footer {
                     border-top: 1px solid var(--color_border_in);
                     padding: 10px 0 11px;
                     font-size: 1.3rem;
@@ -855,7 +855,7 @@
                     width: 20px;
                     height: 20px;
                 }
-                #main-newstand footer .next, #main-newstand footer .prev {
+                .left-section footer .next, .left-section footer .prev {
                     background: none;
                     border: none;
                     width: 36px;
@@ -872,10 +872,10 @@
                     justify-content: center;
                     align-items: center;
                 }
-                #main-newstand footer .prev::before {
+                .left-section footer .prev::before {
                     transform: rotate(180deg);
                 }
-                #main-newstand footer .next::before, #main-newstand footer .prev::before {
+                .left-section footer .next::before, #main-newstand footer .prev::before {
                     content: '';
                     display: block;
                     background-image: url(./sp_main.png);
@@ -886,36 +886,52 @@
                     height: 15px;
                     gap: 6px;
                 }
-                #main-newstand footer .text {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 100px;                
-                    height: 15px;                
-                    padding: 0 6px;
-                    font-size: 13px;
-                    white-space: nowrap;        
-                    overflow: hidden;          
-                    text-overflow: ellipsis;    
-                    box-sizing: border-box;
-                    line-height: 1;
-                    font-weight: normal;
-                    
+                 .left-section footer .text {
+                    padding: 0 16px;
+                    min-width: 156px;
                     
                 }
-                #main-newstand footer .news {
+                 .left-section footer .hot {
+                    color: #9858f5;
+                }
+                .left-section .news {
                     color: var(--color_news);
                     margin-right: 4px;
                 }
-                #main-newstand footer .total {
+                .left-section .total {
                     color: rgba(96,96,96,.5);
                 }
-            </style>
+                #main-shopping {
+                    height: 560px;
+                    display: flex;
+                    flex-flow: column;
+                }
+                #main-shopping-top {
+                    padding-top: 19px;
+                }
+                #main-shoppoing footer .text {
+                    min-width: 176px;
+                }
+                #main-shopping-gray {
+                    display: flex;
+                }
+                #main-shopping-gray .left {
+                    width: 668px;
+                    height: 50px;
+                    padding: 15px 20px 14px;
+                    display: flex;
+                    background-color: var(--color_option_bg);
+                }
+                #main-shopping-gray .right {
+                    margin-left: auto;
+                    padding: 10px 0;
+                }
+                </style>
             <main id="main">
                 <div id="main-left">
                     <aside id="main-left-ad"></aside>
                     <section id="main-newstand">
-                        <div id="main-newstand-top">
+                        <div id="main-newstand-top" class="left-section">
                             <header>
                                 <a href="#" class="bold">뉴스스탠드</a>
                                 <a href="#" class="dot">언론사편집</a>
@@ -966,8 +982,41 @@
                             </div>
                         </div>
                         <footer>
+                             <button class="prev"><span class="blind">이전 페이지</span></button>
+                            <div class="text"><span class="news">언론사</span>&nbsp;더보기&nbsp;1<span class="total">/4</span></div>
+                            <button class="next"><span class="blind">다음 페이지</span></button>
+                            <button class="list"><span class="blind">목록보기</span></button>
+                            <button class="grid"><span class="blind">격자보기</span></button>
+                        </footer>
+                    </div>
+                    </section>
+                    <section id="main-shopping" class="left-section">
+                        <div id="main-shopping-top">
+                            <header>
+                                <a href="#" class="bold">쇼핑</a>
+                                <a href="#" class="slash">맨즈</a>
+                                <a href="#" class="slash">원쁠딜</a>
+                                <a href="#" class="slash">쇼핑라이브</a>
+                            </header>
+                            <div id="main-shopping-gray">
+                                <div class="left">
+                                    <a href="#">오늘의 혜택</a>
+                                    <div>
+                                        <a href="#">양보윤 졸려 양보윤 배고파</a>
+                                    </div>
+                                </div>
+                                <div class="right">
+                                    <span>1</span>
+                                    <span>18</span>
+                                    <button class="prev"><div class="blind">이전페이지</div></button>
+                                    <button class="next"><div class="blind">다음페이지</div></button>
+                                </div>
+                            </div>
+                            <div id="main-shopping-grid">
+                            </div>
                             <button class="prev"><span class="blind">이전</span></button>
                             <div class="text"><span class="news">언론사</span>&nbsp;더보기&nbsp;1<span class="total">/4</span></div>
+                            <div class="text"><span class="hot">쇼핑핫아이템</span>&nbsp;더보기&nbsp;1<span class="total">/18</span></div>
                             <button class="next"><span class="blind">다음</span></button>
                             <button class="list"><span class="blind">목록보기</span></button>
                             <button class="grid"><span class="blind">격자보기</span></button>

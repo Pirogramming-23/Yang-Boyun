@@ -80,6 +80,7 @@
         }
         #wrap{
            text-align: center;
+           
         }
         #wrap-center{
             width: 1280px;
@@ -88,10 +89,13 @@
         }
         #header{
             text-align : left;
+            position : relative;
         }
 
         #head-hamburger{
-            margin-top: 18px;
+            position: absolute;
+            top: 18px;
+            left: -10px;
             padding : 10px;
             display : inline-block;
             background : none;
@@ -99,9 +103,21 @@
             cursor : pointer;
         }
     
-        #head-hamburger:hover {
+        #head-hamburger:hover::before {
+            position: absolute;
+            content : '';
+            left : 1px;
+            top : 1px;
+            width : 44px;
+            height : 44px;
             border-radius: 50%;
             background-color: #e7eced;
+        }
+
+        #header-hamburger:hover > div {
+            position : relative;
+            left : 1px;
+            top : 1px;
         }
 
         #head-hamburger > div {

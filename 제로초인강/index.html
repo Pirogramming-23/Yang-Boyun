@@ -76,7 +76,6 @@
         html, body , form{
             margin:0;
             padding:0;
-
         }
     
         #wrap{
@@ -250,7 +249,7 @@
                 #search-svg::after {
                     display: none;
                 }
-                
+
                 #search > form:focus-within #search-svg::after {
                     content: '';
                     width: 1px;
@@ -355,9 +354,100 @@
                     </div>
                </form>
             </div>
-            <div id="nav"></div>
+            <style>
+               #nav ul {
+                    display: flex;
+                    list-style-type: none;
+                    justify-content: center;
+                    font-size: 1.4rem;
+                    line-height: 20px;
+                }
+                #nav a {
+                    text-decoration: none;
+                }
+                #nav a:visited {
+                    color: black;
+                }
+                #nav li {
+                    width: 64px;
+                    margin-left: 4px;
+                }
+                #nav li:nth-of-type(1) {
+                    margin-left: 0;
+                }
+            </style>
+            <div id="nav">
+                <ul>
+                    <li>
+                        <a href="">
+                            <div></div>
+                            <span>메일</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div></div>
+                            <span>카페</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div></div>
+                            <span>블로그</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div></div>
+                            <span>스토어</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div></div>
+                            <span>뉴스</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div></div>
+                            <span>증권</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div></div>
+                            <span>부동산</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div></div>
+                            <span>지도</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div></div>
+                            <span>웹툰</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div></div>
+                            <span>치지직</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div></div>
+                            <span class="blind">더보기</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
             <div id="main"></div>
         </div>
-    </div>
+    </div>q
 </body>
 </html>

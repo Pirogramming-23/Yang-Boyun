@@ -1,19 +1,24 @@
-#num = 0 선언
+#1단계
 num = 0
 
+#8단계 brGame 함수 정의 - 중복되는 입력 검증 코드를 함수로 만들기
+def brGame():
+    while True:
+        try:
+            count = int(input('부를 숫자의 개수를 입력하세요(1, 2, 3만 입력 가능) : '))
+            if count not in [1, 2, 3]:
+                print('1,2,3 중 하나를 입력하세요')
+                continue
+            break
+        except ValueError:
+            print('정수를 입력하세요')
+    return count
+
 #  1에서 3사이의 정수를 입력 받는 코드
-count = int(input('부를 숫자의 개수를 입력하세요(1, 2, 3만 입력 가능) : '))
+count = brGame()
 
 #3단계 
-while True:
-    try:
-        count = int(input('부를 숫자의 개수를 입력하세요(1, 2, 3만 입력 가능) : '))
-        if count not in [1, 2, 3]:
-            print('1,2,3 중 하나를 입력하세요')
-            continue
-        break
-    except ValueError:
-        print('정수를 입력하세요')
+count = brGame()
 
 #4단계
 for i in range(count):
@@ -22,15 +27,7 @@ for i in range(count):
 
 #5단계
 # playerB 입력 및 출력
-while True:
-    try:
-        count_b = int(input('부를 숫자의 개수를 입력하세요(1, 2, 3만 입력 가능) : '))
-        if count_b not in [1, 2, 3]:
-            print('1,2,3 중 하나를 입력하세요')
-            continue
-        break
-    except ValueError:
-        print('정수를 입력하세요')
+count_b = brGame()
 
 for i in range(count):
     num += 1
@@ -39,15 +36,7 @@ for i in range(count):
 #6단계
 turn = 'playerA'
 while num < 31:
-    while True:
-        try:
-            count = int(input(f'부를 숫자의 개수를 입력하세요(1, 2, 3만 입력 가능) : '))
-            if count not in [1, 2, 3]:
-                print('1,2,3 중 하나를 입력하세요')
-                continue
-            break
-        except ValueError:
-            print('정수를 입력하세요')
+    count = brGame()
     for i in range(1, count + 1):
         num += 1
         print(f'{turn} : {num}')

@@ -56,3 +56,9 @@ while num < 31:
     if num == 31:
         break
     turn = 'playerB' if turn == 'playerA' else 'playerA'
+
+#7단계
+# 31을 부른 사람이 지므로, turn이 마지막에 31을 부른 사람임
+winner = 'playerB' if turn == 'playerA' else 'playerA'
+print(f'{winner} win!')
+

@@ -1,4 +1,4 @@
-#1단계
+import random
 num = 0
 
 #8단계 brGame 함수 정의 - 중복되는 입력 검증 코드를 함수로 만들기
@@ -14,29 +14,21 @@ def brGame():
             print('정수를 입력하세요')
     return count
 
-#  1에서 3사이의 정수를 입력 받는 코드
-count = brGame()
-
-#3단계 
-count = brGame()
-
-#4단계
-for i in range(count):
-    num += 1
-    print(f'playerA : {num}')
-
-#5단계
-# playerB 입력 및 출력
-count_b = brGame()
-
-for i in range(count):
-    num += 1
-    print(f'playerB : {num}')
-
-#6단계
-turn = 'playerA'
+#6단계 - 게임 시작
+turn = 'computer'  
 while num < 31:
-    count = brGame()
+    if turn == 'computer':
+        # computer는 임의로 1~3개의 수를 부름
+        count = random.randint(1, 3)
+    else:
+        # player는 입력받음
+        count = brGame()
+    
+    # 31을 넘지 않도록 조정
+    remaining = 31 - num
+    if count > remaining:
+        count = remaining
+    
     for i in range(1, count + 1):
         num += 1
         print(f'{turn} : {num}')
@@ -44,10 +36,10 @@ while num < 31:
             break
     if num == 31:
         break
-    turn = 'playerB' if turn == 'playerA' else 'playerA'
+    turn = 'player' if turn == 'computer' else 'computer'
 
 #7단계
 # 31을 부른 사람이 지므로, turn이 마지막에 31을 부른 사람임
-winner = 'playerB' if turn == 'playerA' else 'playerA'
+winner = 'player' if turn == 'computer' else 'computer'
 print(f'{winner} win!')
 

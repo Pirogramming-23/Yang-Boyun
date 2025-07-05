@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pirogramming StopWatch</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Pirogramming Stopwatch</h1>
+        
+        <!-- 모드 스위처 추가 -->
+        <div class="mode-switcher">
+            <button id="stopwatchMode" class="active">스톱워치</button>
+            <button id="timerMode">타이머</button>
+        </div>
+        
+        <div class="stopwatch">
+            <div id="display">
+                <span id="seconds">00</span>:<span id="milliseconds">00</span>
+            </div>
+            
+           
+            <div class="timer-settings" id="timerSettings" style="display: none;">
+                <input type="number" id="minutesInput" min="0" max="59" value="0">
+                <span>분</span>
+                <input type="number" id="secondsInput" min="0" max="59" value="0">
+                <span>초</span>
+            </div>
+            
+            <div class="buttons">
+                <button id="startBtn">start</button>
+                <button id="pauseBtn">stop</button>
+                <button id="resetBtn">reset</button>
+            </div>
+        </div>
+        
+        <div class="laps-container">
+            <div class="laps-header">
+                <label for="selectAllCheckbox">
+                    <input type="checkbox" id="selectAllCheckbox">
+                    <span class="checkbox-icon-all">
+                        <i class="fas fa-circle"></i>
+                        <i class="fas fa-check-circle"></i>
+                    </span>
+                    <span style="margin-left:4px;vertical-align:middle;">전체선택</span>
+                </label>
+                <h2>구간 기록</h2>
+                <div>
+                    <button id="deleteButton">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="laps">
+                <ul id="recordList">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -31,7 +31,7 @@
     <form method="get" style="max-width:1200px;margin:24px auto 0 auto;display:flex;justify-content:flex-end;">
         <label style="font-size:1rem; color:#444; margin-right:8px;">정렬:</label>
         <select name="sort" onchange="this.form.submit()" style="font-size:1rem; padding:4px 8px;">
-            <option value="" {% if not request.GET.sort %}selected{% endif %}>최신순</option>
+            <option value="" {% if not request.GET.sort %}selected{% endif %}>오래된순</option>
             <option value="title" {% if request.GET.sort == 'title' %}selected{% endif %}>제목순</option>
             <option value="rating" {% if request.GET.sort == 'rating' %}selected{% endif %}>별점순</option>
             <option value="running_time" {% if request.GET.sort == 'running_time' %}selected{% endif %}>상영시간순</option>

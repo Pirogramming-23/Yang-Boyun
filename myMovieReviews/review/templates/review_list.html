@@ -1,0 +1,56 @@
+{% load time_filters %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>my Movie reviews</title>
+    <style>
+        body { background: #fafafa; margin: 0; font-family: 'Noto Sans KR', sans-serif; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding: 20px 40px 10px 40px; background: #fff; }
+        .logo { font-size: 2rem; font-weight: 700; text-decoration: none; color: #222; }
+        .logo span { color: #e60039; }
+        .logo:hover { color: #222; text-decoration: none; }
+        .logo:visited { color: #222; text-decoration: none; }
+        .add-review { color: #222; text-decoration: none; font-size: 1rem; }
+        .container { max-width: 1200px; margin: 40px auto; display: flex; gap: 32px; justify-content: flex-start; flex-wrap: wrap; }
+        .card { background: #ededed; border-radius: 8px; box-shadow: 0 2px 8px #0001; width: 220px; padding: 24px 16px 16px 16px; display: flex; flex-direction: column; align-items: center; }
+        .card img { width: 140px; height: 180px; object-fit: cover; border-radius: 4px; margin-bottom: 16px; }
+        .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .card-info { font-size: 0.95rem; color: #444; margin-bottom: 2px; }
+        .card-genre { color: #666; font-size: 0.95rem; margin-bottom: 2px; }
+        .card-rating { font-weight: 500; font-size: 1rem; color: #222; }
+        a.card-link { color: inherit; text-decoration: none; }
+        .empty-msg { color: #888; font-size: 1.1rem; margin: 60px auto; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/" class="logo">my <span>Movie</span> reviews</a>
+        <a href="/review/create/" class="add-review">리뷰추가하기</a>
+    </div>
+    <form method="get" style="max-width:1200px;margin:24px auto 0 auto;display:flex;justify-content:flex-end;">
+        <label style="font-size:1rem; color:#444; margin-right:8px;">정렬:</label>
+        <select name="sort" onchange="this.form.submit()" style="font-size:1rem; padding:4px 8px;">
+            <option value="title" {% if request.GET.sort == 'title' %}selected{% endif %}>제목순</option>
+            <option value="rating" {% if request.GET.sort == 'rating' %}selected{% endif %}>별점순</option>
+            <option value="running_time" {% if request.GET.sort == 'running_time' %}selected{% endif %}>상영시간순</option>
+        </select>
+    </form>
+    <div class="container">
+        {% for review in reviews %}
+        <a href="/review/{{ review.pk }}/" class="card-link">
+            <div class="card">
+                <img src="{% if review.image %}{{ review.image.url }}{% else %}https://images.unsplash.com/photo-1517602302552-471fe67acf66?auto=format&fit=crop&w=400&q=80{% endif %}" alt="poster">
+                <div class="card-title">{{ review.title }}</div>
+                <div class="card-info">개봉년도 {{ review.year }}년</div>
+                <div class="card-genre">장르 {{ review.genre.all|join:", " }}</div>
+                <div class="card-rating">별점 {{ review.rating }}</div>
+                <div class="card-info">러닝타임 {{ review.running_time|hours_minutes }}</div>
+            </div>
+        </a>
+        {% empty %}
+        <div class="empty-msg">작성된 리뷰가 없습니다.</div>
+        {% endfor %}
+    </div>
+</body>
+</html>

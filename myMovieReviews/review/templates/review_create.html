@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>MY Movie reviews</title>
+    <style>
+        body { background: #fafafa; margin: 0; font-family: 'Noto Sans KR', sans-serif; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding: 20px 40px 10px 40px; background: #fff; }
+        .logo { font-size: 2rem; font-weight: 700; text-decoration: none; color: #222; }
+        .logo span { color: #e60039; }
+        .logo:hover { color: #222; text-decoration: none; }
+        .logo:visited { color: #222; text-decoration: none; }
+        .add-review { color: #222; text-decoration: none; font-size: 1rem; }
+        .form-container { max-width: 520px; margin: 48px auto; background: #ededed; border-radius: 10px; padding: 36px 40px 32px 40px; box-shadow: 0 2px 8px #0001; }
+        .form-title { text-align: center; font-size: 1.4rem; font-weight: 700; color: #e60039; margin-bottom: 24px; letter-spacing: -1px; }
+        .form-title span { color: #222; font-weight: 500; margin-left: 8px; font-size: 1.1rem; }
+        form label { display: block; margin-top: 16px; font-weight: 500; }
+        form input, form select, form textarea { width: 100%; margin-top: 4px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; box-sizing: border-box; }
+        form textarea { min-height: 100px; resize: vertical; }
+        .form-btn { margin-top: 24px; width: 100%; padding: 10px 0; background: #e60039; color: #fff; border: none; border-radius: 4px; font-size: 1.1rem; font-weight: 600; cursor: pointer; }
+        .form-btn:hover { background: #b8002f; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/" class="logo">my <span>Movie</span> reviews</a>
+        <a href="/review/create/" class="add-review">Add a New review</a>
+    </div>
+    <div class="form-container">
+        <div class="form-title">Movie review <span>🍿</span></div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>포스터 이미지: {{ form.image }}</label>
+            <label>제목: {{ form.title }}</label>
+            {% if form.title.errors %}<div style="color:red;">{{ form.title.errors.0 }}</div>{% endif %}
+            <label>영화 개봉 연도: {{ form.year }}</label>
+            {% if form.year.errors %}<div style="color:red;">{{ form.year.errors.0 }}</div>{% endif %}
+            <label>주연: {{ form.main_actor }}</label>
+            {% if form.main_actor.errors %}<div style="color:red;">{{ form.main_actor.errors.0 }}</div>{% endif %}
+            <label>장르:</label>
+            <div style="margin-top: 8px; margin-bottom: 16px;">
+                {% for genre in genres %}
+                <label style="display: inline-block; margin-right: 12px; margin-bottom: 8px; font-weight: normal;">
+                    <input type="checkbox" name="genre" value="{{ genre.id }}" 
+                        {% if genre.id|stringformat:"s" in form.genre.value|stringformat:"s" %}checked{% endif %}
+                        style="margin-right: 4px;">
+                    {{ genre.name }}
+                </label>
+                {% endfor %}
+            </div>
+            {% if form.genre.errors %}<div style="color:red;">{{ form.genre.errors.0 }}</div>{% endif %}
+            <label>별점: {{ form.rating }}</label>
+            {% if form.rating.errors %}<div style="color:red;">{{ form.rating.errors.0 }}</div>{% endif %}
+            <label>러닝타임: {{ form.running_time }}</label>
+            {% if form.running_time.errors %}<div style="color:red;">{{ form.running_time.errors.0 }}</div>{% endif %}
+            <label>리뷰: {{ form.content }}</label>
+            {% if form.content.errors %}<div style="color:red;">{{ form.content.errors.0 }}</div>{% endif %}
+            <label>감독: {{ form.director }}</label>
+            {% if form.director.errors %}<div style="color:red;">{{ form.director.errors.0 }}</div>{% endif %}
+            <button type="submit" class="form-btn">Save</button>
+        </form>
+    </div>
+</body>
+</html>

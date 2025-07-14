@@ -5,11 +5,19 @@
  
     </article>
     <input type="button" value="fetch" onclick="
-      fetch('html').then(function(response){
+      /*
+       fetch('html').then(function(response){
         response.text().then(function(text){
           document.querySelector('article').innerHTML = text;
         })
-      })
+      }) */
+      //Asynchronous
+      function callbackname() {
+        console.log('response end');
+      }
+      fetch('html').then(callbackname);
+      console.log(1);
+      console.log(2);
     ">
   </body>
 </html>

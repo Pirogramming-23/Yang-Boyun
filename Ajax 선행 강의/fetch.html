@@ -12,10 +12,11 @@
         })
       }) */
       //Asynchronous
-      function callbackname() {
-        console.log('response end');
-      }
-      fetch('html').then(callbackname);
+       fetch('html').then(function(response){
+        if(response.status == '404'){
+          alert('Not found')
+        }
+      });
       console.log(1);
       console.log(2);
     ">

@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="detail-container">
+    <div class="detail-header">
+        <h2>{{ idea.title }}</h2>
+        <div class="star-section">
+            <button class="star-btn {% if idea.is_starred %}active{% endif %}" 
+                    data-idea-id="{{ idea.pk }}" 
+                    onclick="toggleStar({{ idea.pk }})">
+                <span class="star-icon">{% if idea.is_starred %}★{% else %}☆{% endif %}</span>
+                <span class="star-text">{% if idea.is_starred %}찜됨{% else %}찜하기{% endif %}</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="detail-content">
+        {% if idea.image %}
+            <div class="image-section">
+                <img src="{{ idea.image.url }}" alt="썸네일" class="detail-image">
+            </div>
+        {% endif %}
+        
+        <div class="idea-info">
+            <div class="info-item">
+                <strong>설명:</strong> 
+                <p class="description-text">{{ idea.description }}</p>
+            </div>
+            
+            <div class="info-item">
+                <strong>관심도:</strong> 
+                <div class="interest-controls">
+                    <button class="interest-btn" onclick="adjustInterest({{ idea.pk }}, 'up')">▲</button>
+                    <span class="interest-value">{{ idea.interest }}</span>
+                    <button class="interest-btn" onclick="adjustInterest({{ idea.pk }}, 'down')">▼</button>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <strong>개발툴:</strong> 
+                {% if idea.devtool %}
+                    <a href="{% url 'devtool_detail' idea.devtool.pk %}" class="devtool-link">
+                        <span class="devtool-icon" data-tool="{{ idea.devtool.name|lower }}">
+                            {{ idea.devtool.name|first|upper }}
+                        </span>
+                        {{ idea.devtool.name }}
+                    </a>
+                {% else %}
+                    <span class="no-devtool">미정</span>
+                {% endif %}
+            </div>
+            
+            <div class="info-item">
+                <strong>생성일:</strong> 
+                <span class="created-date">{{ idea.created_at|date:"Y년 m월 d일" }}</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="detail-actions">
+        <a href="{% url 'idea_update' idea.pk %}" class="action-btn edit-btn">
+            <span class="btn-icon">✏️</span>
+            <span class="btn-text">수정</span>
+        </a>
+        <a href="{% url 'idea_delete' idea.pk %}" class="action-btn delete-btn">
+            <span class="btn-icon">🗑️</span>
+            <span class="btn-text">삭제</span>
+        </a>
+        <a href="{% url 'main' %}" class="action-btn back-btn">
+            <span class="btn-icon">📋</span>
+            <span class="btn-text">목록</span>
+        </a>
+    </div>
+</div>
+
+<script>
+function toggleStar(ideaId) {
+    fetch(`/idea/${ideaId}/star/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        const starBtn = document.querySelector(`[data-idea-id="${ideaId}"]`);
+        const starIcon = starBtn.querySelector('.star-icon');
+        const starText = starBtn.querySelector('.star-text');
+        
+        if (data.starred) {
+            starBtn.classList.add('active');
+            starIcon.textContent = '★';
+            starText.textContent = '찜됨';
+        } else {
+            starBtn.classList.remove('active');
+            starIcon.textContent = '☆';
+            starText.textContent = '찜하기';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function adjustInterest(ideaId, action) {
+    fetch(`/idea/${ideaId}/interest/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `action=${action}`,
+    })
+    .then(response => response.json())
+    .then(data => {
+        const interestValue = document.querySelector('.interest-value');
+        interestValue.textContent = data.interest;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+</script>
+
+<!-- CSRF Token for AJAX requests -->
+{% csrf_token %}
+{% endblock %} 

@@ -1,0 +1,18 @@
+{% for idea in ideas %}
+<div class="idea-card">
+    {% if idea.image %}
+        <img src="{{ idea.image.url }}" class="thumbnail">
+    {% endif %}
+    <a href="{% url 'idea_detail' idea.pk %}" class="idea-title">{{ idea.title }}</a>
+    <div style="margin:0.7rem 0 0.5rem 0; color:#666; font-size:1rem; min-height:2.5em; text-align:center;">{{ idea.description|truncatechars:50 }}</div>
+    <span class="interest-box">
+        <button class="interest-btn" data-id="{{ idea.pk }}" data-action="down">-</button>
+        <span class="interest-count">{{ idea.interest }}</span>
+        <button class="interest-btn" data-id="{{ idea.pk }}" data-action="up">+</button>
+    </span>
+    <span class="star-btn" data-id="{{ idea.pk }}" style="margin-top:0.5rem;">
+        <i class="star{% if idea.is_starred %} active{% endif %}">★</i>
+        <span class="star-count">{% if idea.is_starred %}1{% else %}0{% endif %}</span>
+    </span>
+</div>
+{% endfor %} 

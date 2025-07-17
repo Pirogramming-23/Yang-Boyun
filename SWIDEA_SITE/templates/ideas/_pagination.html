@@ -1,0 +1,11 @@
+<div style="text-align:center; margin-top:2rem;">
+    <div class="pagination" style="display:inline-block;">
+        {% if page_obj.has_previous %}
+            <a href="#" class="page-link" data-page="{{ page_obj.previous_page_number }}">&laquo; 이전</a>
+        {% endif %}
+        <span style="font-weight:bold; color:#b48a78;">{{ page_obj.number }}</span> / <span>{{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+            <a href="#" class="page-link" data-page="{{ page_obj.next_page_number }}">다음 &raquo;</a>
+        {% endif %}
+    </div>
+</div> 

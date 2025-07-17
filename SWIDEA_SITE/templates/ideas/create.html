@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="form-container">
+    <div class="form-header">
+        <h2>아이디어 등록</h2>
+    </div>
+    <form method="post" enctype="multipart/form-data" class="idea-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.title.id_for_label }}">Title:</label>
+            {{ form.title }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.image.id_for_label }}">Image:</label>
+            <div class="file-upload-container">
+                {{ form.image }}
+                <div class="file-preview" id="imagePreview">
+                    <p>이미지를 선택해주세요</p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.description.id_for_label }}">Description:</label>
+            {{ form.description }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.interest.id_for_label }}">Interest:</label>
+            {{ form.interest }}
+        </div>
+        <div class="form-group">
+            <label for="devtool_input">Devtool:</label>
+            {{ form.devtool_input }}
+            <datalist id="devtools">
+                {% for tool in devtools %}
+                    <option value="{{ tool.name }}">
+                {% endfor %}
+            </datalist>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="submit-btn">등록</button>
+            <a href="{% url 'main' %}" class="cancel-link">취소</a>
+        </div>
+    </form>
+</div>
+{% endblock %} 

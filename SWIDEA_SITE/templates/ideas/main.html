@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="main-header">
+    <h1>Idea List</h1>
+    <p class="subtitle">아이디어를 관리하고 발전시켜보세요</p>
+</div>
+<div class="controls-section">
+    <form method="get" class="search-form">
+        <input type="text" name="q" value="{{ q }}" placeholder="제목 검색" class="search-input">
+        <select name="devtool" class="devtool-select">
+            <option value="">전체 개발툴</option>
+            {% for tool in devtools %}
+                <option value="{{ tool.pk }}" {% if tool.pk|stringformat:'s' == devtool_id %}selected{% endif %}>{{ tool.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="search-btn">검색</button>
+    </form>
+    <div class="sort-section">
+        <select class="sort-select" onchange="this.form.submit()">
+            <option value="">정렬 기준</option>
+            <option value="latest" {% if sort == 'latest' %}selected{% endif %}>최신순</option>
+            <option value="oldest" {% if sort == 'oldest' %}selected{% endif %}>등록순</option>
+            <option value="name" {% if sort == 'name' %}selected{% endif %}>이름순</option>
+            <option value="interest" {% if sort == 'interest' %}selected{% endif %}>관심도순</option>
+        </select>
+    </div>
+</div>
+<div class="idea-list">
+    {% for idea in ideas %}
+    <div class="idea-card">
+        {% if idea.image %}
+            <div class="card-image">
+                <img src="{{ idea.image.url }}" alt="{{ idea.title }}" class="idea-thumbnail">
+            </div>
+        {% endif %}
+        <div class="card-header">
+            {% if idea.devtool %}
+                <div class="devtool-icon" data-tool="{{ idea.devtool.name|lower }}">
+                    {{ idea.devtool.name|slice:":2"|upper }}
+                </div>
+            {% endif %}
+            <span class="star-btn" data-id="{{ idea.pk }}">
+                <i class="star{% if idea.is_starred %} active{% endif %}">★</i>
+            </span>
+        </div>
+        <div class="card-content">
+            <h3 class="idea-title">
+                <a href="{% url 'idea_detail' idea.pk %}">{{ idea.title }}</a>
+            </h3>
+            <p class="idea-description">{{ idea.description|truncatechars:50 }}</p>
+            <div class="idea-details">
+                <span class="devtool-info">예상 개발 툴 : {{ idea.devtool.name|default:"미정" }}</span>
+                <span class="interest-info">아이디어 관심도 : + {{ idea.interest }}</span>
+            </div>
+        </div>
+        <div class="card-actions">
+            <span class="interest-box">
+                <button class="interest-btn" data-id="{{ idea.pk }}" data-action="down">-</button>
+                <span class="interest-count">{{ idea.interest }}</span>
+                <button class="interest-btn" data-id="{{ idea.pk }}" data-action="up">+</button>
+            </span>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="pagination-section">
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?{% if q %}q={{ q }}&{% endif %}{% if devtool_id %}devtool={{ devtool_id }}&{% endif %}{% if sort %}sort={{ sort }}&{% endif %}page={{ page_obj.previous_page_number }}" class="page-link">&lt;</a>
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+            {% if num == page_obj.number %}
+                <span class="current-page">{{ num }}</span>
+            {% else %}
+                <a href="?{% if q %}q={{ q }}&{% endif %}{% if devtool_id %}devtool={{ devtool_id }}&{% endif %}{% if sort %}sort={{ sort }}&{% endif %}page={{ num }}" class="page-link">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <a href="?{% if q %}q={{ q }}&{% endif %}{% if devtool_id %}devtool={{ devtool_id }}&{% endif %}{% if sort %}sort={{ sort }}&{% endif %}page={{ page_obj.next_page_number }}" class="page-link">&gt;</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

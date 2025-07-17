@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="devtool-list-container">
+    <div class="list-header">
+        <h2>개발툴 목록</h2>
+    </div>
+    <div class="devtool-list">
+        {% for tool in devtools %}
+            <div class="devtool-item">
+                <div class="devtool-info">
+                    <h3 class="devtool-name">{{ tool.name }}</h3>
+                    <p class="devtool-kind">{{ tool.kind }}</p>
+                    <p class="devtool-description">{{ tool.description }}</p>
+                </div>
+                <div class="devtool-actions">
+                    <a href="{% url 'devtool_detail' tool.id %}" class="detail-link">상세보기</a>
+                    <a href="{% url 'devtool_update' tool.id %}" class="edit-link">수정</a>
+                    <a href="{% url 'devtool_delete' tool.id %}" class="delete-link">삭제</a>
+                </div>
+            </div>
+        {% empty %}
+            <div class="empty-state">
+                <p>등록된 개발툴이 없습니다.</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="add-devtool-section">
+        <a href="{% url 'devtool_create' %}" class="add-devtool-btn">+ 개발툴 등록</a>
+    </div>
+</div>
+{% endblock %} 

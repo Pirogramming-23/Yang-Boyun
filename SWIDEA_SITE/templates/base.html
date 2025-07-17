@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>My SW Idea Manage</title>
+    <link rel="stylesheet" href="{% static 'ideas/style.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">My SW Idea Manage</div>
+        <div class="navbar-menu">
+            <a href="{% url 'create_idea' %}" class="nav-link">아이디어 등록</a>
+            <a href="{% url 'main' %}" class="nav-link">아이디어 관리</a>
+            <a href="{% url 'devtool_create' %}" class="nav-link">개발툴 등록</a>
+            <a href="{% url 'devtool_list' %}" class="nav-link">개발툴 관리</a>
+        </div>
+    </nav>
+    <div class="overlay">
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    <script src="{% static 'ideas/main.js' %}"></script>
+</body>
+</html> 

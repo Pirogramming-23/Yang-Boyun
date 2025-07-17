@@ -2,7 +2,7 @@
 
 function ajaxSearch() {
   const q = document.querySelector('input[name="q"]').value;
-  const devtool = document.querySelector('select[name=devtool"]').value;
+  const devtool = document.querySelector('select[name="devtool"]').value;
   fetch(`/search/?q=${encodeURIComponent(q)}&devtool=${encodeURIComponent(devtool)}`)
     .then(res => res.json())
     .then(data => {
@@ -13,42 +13,49 @@ function ajaxSearch() {
 }
 
 function bindIdeaCardEvents() {
-  document.querySelectorAll('.star-btn').forEach(btn =>[object Object]
-    btn.onclick = function() [object Object]      const ideaId = this.dataset.id;
-      fetch(`/idea/${ideaId}/star/`,[object Object]
-        method: 'POST,
-        headers: [object Object]          X-CSRFToken': getCookie('csrftoken'),
-         X-Requested-With:XMLHttpRequest',
+  document.querySelectorAll('.star-btn').forEach(btn => {
+    btn.onclick = function() {
+      const ideaId = this.dataset.id;
+      fetch(`/idea/${ideaId}/star/`, {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': getCookie('csrftoken'),
+          'X-Requested-With': 'XMLHttpRequest',
         },
       })
-      .then(res =>[object Object]    if (res.status ===403 || res.status === 401)[object Object]
+      .then(res => {
+        if (res.status === 403 || res.status === 401) {
           alert('로그인 후 이용 가능합니다.');
           return null;
         }
-        if (res.redirected) [object Object]   window.location.href = res.url;
+        if (res.redirected) {
+          window.location.href = res.url;
           return null;
         }
         return res.json();
       })
       .then(data => {
         if (!data) return;
-        this.querySelector(.star').classList.toggle('active, data.starred);
+        this.querySelector('.star').classList.toggle('active', data.starred);
         this.querySelector('.star-count').innerText = data.star_count;
       })
-      .catch(error =>[object Object]     console.error(Error:', error);
+      .catch(error => {
+        console.error('Error:', error);
       });
     };
   });
-  
-  document.querySelectorAll('.interest-btn').forEach(btn =>[object Object]
-    btn.onclick = function() [object Object]      const ideaId = this.dataset.id;
+
+  document.querySelectorAll('.interest-btn').forEach(btn => {
+    btn.onclick = function() {
+      const ideaId = this.dataset.id;
       const action = this.dataset.action;
-      fetch(`/idea/${ideaId}/interest/`,[object Object]
-        method: 'POST,
-        headers: [object Object]          X-CSRFToken': getCookie('csrftoken'),
-         X-Requested-With:XMLHttpRequest',
+      fetch(`/idea/${ideaId}/interest/`, {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': getCookie('csrftoken'),
+          'X-Requested-With': 'XMLHttpRequest',
         },
-        body: new URLSearchParams({action: action})
+        body: new URLSearchParams({action: action}),
       })
       .then(res => res.json())
       .then(data => {
@@ -56,12 +63,13 @@ function bindIdeaCardEvents() {
       });
     };
   });
-  
-  document.querySelectorAll('.page-link).forEach(link => [object Object]    link.onclick = function(e) {
+
+  document.querySelectorAll('.page-link').forEach(link => {
+    link.onclick = function(e) {
       e.preventDefault();
       const page = this.dataset.page;
       const q = document.querySelector('input[name="q"]').value;
-      const devtool = document.querySelector('select[name=devtool"]').value;
+      const devtool = document.querySelector('select[name="devtool"]').value;
       fetch(`/search/?q=${encodeURIComponent(q)}&devtool=${encodeURIComponent(devtool)}&page=${page}`)
         .then(res => res.json())
         .then(data => {
@@ -73,13 +81,12 @@ function bindIdeaCardEvents() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', function()[object Object]
-  // 기존 이벤트 바인딩 제거
+document.addEventListener('DOMContentLoaded', function() {
   bindIdeaCardEvents();
   document.querySelector('input[name="q"]').addEventListener('input', function() {
     ajaxSearch();
   });
-  document.querySelector('select[name="devtool"]').addEventListener(change', function() {
+  document.querySelector('select[name="devtool"]').addEventListener('change', function() {
     ajaxSearch();
   });
 });
@@ -87,11 +94,11 @@ document.addEventListener('DOMContentLoaded', function()[object Object]
 function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== '') {
-    const cookies = document.cookie.split(;);
+    const cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i].trim();
-      if (cookie.substring(0, name.length + 1 === (name + '=')) {
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1);
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
         break;
       }
     }

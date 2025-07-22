@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="creation-container">
+    <div class="creation-wrapper">
+        <h2 class="creation-header">새 게시물 공유하기</h2>
+        <form action="{% url 'posts:post_create' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="creation-content">
+                <div class="creation-preview">
+                    <img src="{% static 'images/insta_profile.jpg' %}" id="image-preview" alt="Image preview">
+                    <label for="id_image" class="btn btn-primary mt-2">이미지 선택</label>
+                    <input type="file" name="image" accept="image/*" required id="id_image" style="display: none;">
+                </div>
+
+                <div class="creation-form">
+                    <div class="mb-3">
+                        <label for="id_content" class="form-label fw-bold">게시글 입력...</label>
+                        {{ form.content }}
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-info text-white">공유하기</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const imageInput = document.getElementById('id_image');
+    const imagePreview = document.getElementById('image-preview');
+
+    imageInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
+{% endblock %}

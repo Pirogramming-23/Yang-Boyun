@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="creation-container">
+    <div class="creation-wrapper">
+        <h2 class="creation-header">새 스토리 공유하기</h2>
+
+        <div class="creation-content">
+            <div class="creation-preview">
+                <img src="{% static 'images/insta_profile.jpg' %}" id="image-preview" alt="Image preview">
+            </div>
+
+            <div class="creation-form">
+                <form action="{% url 'posts:story_create' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p class="mt-3">스토리로 공유할 사진을 선택하세요.</p>
+                    <div class="mb-3">
+                        <label for="id_image" class="btn btn-primary w-100">컴퓨터에서 선택</label>
+                        <input type="file" name="image" accept="image/*" required id="id_image" style="display: none;">
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-info text-white">공유하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const imageInput = document.getElementById('id_image');
+    const imagePreview = document.getElementById('image-preview');
+
+    imageInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+{% endblock %}

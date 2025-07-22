@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ user_profile.username }} • Pirostagram 프로필</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .profile-wrap { max-width: 900px; margin: 40px auto 0 auto; }
+        .profile-header { display: flex; align-items: center; gap: 40px; }
+        .profile-img { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 1px solid #dbdbdb; }
+        .profile-info { flex: 1; }
+        .profile-username { font-size: 28px; font-weight: 600; }
+        .profile-btns { margin-top: 8px; }
+        .profile-btns button { margin-right: 8px; }
+        .profile-stats { display: flex; gap: 24px; margin: 16px 0; }
+        .profile-stats span { font-weight: 600; }
+        .profile-tabs { display: flex; justify-content: center; border-top: 1px solid #dbdbdb; margin-top: 32px; }
+        .profile-tab { padding: 16px 32px; font-weight: 600; border-bottom: 2px solid #262626; }
+        .profile-empty { text-align: center; margin: 80px 0; color: #8e8e8e; }
+        .profile-empty img { width: 80px; margin-bottom: 16px; }
+        .profile-empty .btn { margin-top: 16px; }
+    </style>
+</head>
+<body>
+    <div class="profile-wrap">
+        <div class="profile-header">
+            <img src="{% static 'images/insta_profile.jpg' %}" class="profile-img" alt="프로필사진">
+            <div class="profile-info">
+                <div class="profile-username">{{ user_profile.username }}</div>
+                <div class="profile-btns">
+                    <button class="btn">프로필 편집</button>
+                    <button class="btn">보관된 스토리 보기</button>
+                    <button class="btn">⚙️</button>
+                </div>
+                <div class="profile-stats">
+                    <div>게시물 <span>{{ posts.count }}</span></div>
+                    <div>팔로워 <span>0</span></div>
+                    <div>팔로우 <span>{{ following_count }}</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="profile-tabs">
+            <div class="profile-tab">게시물</div>
+            <div class="profile-tab" style="color:#8e8e8e; border-bottom:none;">저장됨</div>
+            <div class="profile-tab" style="color:#8e8e8e; border-bottom:none;">태그됨</div>
+        </div>
+        {% if posts.count == 0 %}
+        <div class="profile-empty">
+            <img src="https://static.cdninstagram.com/rsrc.php/v3/yx/r/0cB8-gL3W6R.png" alt="사진 공유">
+            <div style="font-size: 24px; font-weight: 600; color: #262626;">사진 공유</div>
+            <div style="margin-bottom: 8px;">사진을 공유하면 회원님의 프로필에 표시됩니다.</div>
+            <a href="{% url 'create_post' %}" class="btn" style="background:#0095f6; color:#fff;">첫 사진 공유하기</a>
+        </div>
+        {% else %}
+        <div class="profile-posts" style="display:flex; flex-wrap:wrap; gap:16px; margin-top:32px;">
+            {% for post in posts %}
+            <a href="{% url 'post_detail' post.id %}">
+                {% if post.images.first %}
+                <img src="{{ post.images.first.image.url }}" style="width:180px; height:180px; object-fit:cover; border-radius:8px; border:1px solid #dbdbdb;">
+                {% else %}
+                <img src="{% static 'images/insta_profile.jpg' %}" style="width:180px; height:180px; object-fit:cover; border-radius:8px; border:1px solid #dbdbdb;">
+                {% endif %}
+            </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html> 

@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 - Pirostagram</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            background: #fafafa;
+        }
+        .login-main-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .login-image-box {
+            width: 400px;
+            height: 600px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 40px;
+        }
+        .login-image-box img {
+            width: 350px;
+            height: auto;
+            border-radius: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+        }
+        .login-box {
+            background: #fff;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            padding: 32px 32px 24px 32px;
+            max-width: 350px;
+            min-width: 320px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+        }
+        .insta-logo {
+            font-family: 'Grand Hotel', cursive, 'Segoe UI', Arial;
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 12px;
+            color: #262626;
+        }
+        .login-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 18px 0;
+        }
+        .login-divider::before, .login-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #dbdbdb;
+        }
+        .login-divider:not(:empty)::before {
+            margin-right: .75em;
+        }
+        .login-divider:not(:empty)::after {
+            margin-left: .75em;
+        }
+        .login-form input {
+            margin-bottom: 8px;
+        }
+        .login-form label {
+            display: none;
+        }
+        .login-facebook-btn {
+            width: 100%;
+            background: #1877f2;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 10px 0;
+            margin-bottom: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .login-facebook-btn:before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: url('https://static.xx.fbcdn.net/rsrc.php/yo/r/iRmz9lCMBD2.ico') no-repeat center/cover;
+            vertical-align: middle;
+        }
+        .login-bottom {
+            color: #8e8e8e;
+            font-size: 12px;
+            margin-top: 18px;
+            text-align: center;
+        }
+        .login-form .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+        .login-form .forgot-link {
+            color: #0095f6;
+            text-align: right;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .login-form .forgot-link:hover {
+            text-decoration: underline;
+        }
+        .login-error {
+            color: #ed4956;
+            font-size: 15px;
+            margin: 10px 0 0 0;
+            text-align: center;
+            font-weight: 500;
+        }
+        @media (max-width: 900px) {
+            .login-main-wrap {
+                flex-direction: column;
+            }
+            .login-image-box {
+                margin-right: 0;
+                margin-bottom: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-main-wrap">
+        <div class="login-image-box">
+            <img src="{% static 'images/login.png' %}" alt="Instagram login preview">
+        </div>
+        <div class="login-box">
+            <div class="insta-logo">Instagram</div>
+            <form method="post" class="login-form">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="전화번호, 사용자 이름 또는 이메일" required>
+                <input type="password" name="password" placeholder="비밀번호" required>
+                <button type="submit" class="btn" style="background:#4cb5f9;">로그인</button>
+                <div class="login-divider">또는</div>
+                <button type="button" class="login-facebook-btn">Facebook으로 로그인</button>
+                {% if form.non_field_errors %}
+                    <div class="login-error">
+                        {% for error in form.non_field_errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <a href="{% url 'password_reset' %}" class="forgot-link">비밀번호를 잊으셨나요?</a>
+            </form>
+            <div class="login-bottom">
+                계정이 없으신가요? <a href="{% url 'signup' %}">가입하기</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
